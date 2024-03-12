@@ -9,10 +9,20 @@ import UIKit
 
 class NotesTableViewCell: UITableViewCell {
     
+    @IBOutlet private weak var noteTitleLabel: UILabel!
+    @IBOutlet private weak var noteTimeLabel: UILabel!
     @IBOutlet private weak var noteTextLabel: UILabel!
     
+    func setNoteTitle(title: String) {
+        noteTitleLabel.text = title
+    }
     
-    func setNoteTextLabel(text: String) {
+    func setNoteText(text: String) {
         noteTextLabel.text = text
     }
+    
+    func setNoteTimeLabel(time: String) {
+        noteTimeLabel.text = time
+    }
+    
 }
