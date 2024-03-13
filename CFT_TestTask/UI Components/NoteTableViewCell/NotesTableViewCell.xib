@@ -21,13 +21,13 @@
                         <color key="textColor" systemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MtX-re-pev">
-                        <rect key="frame" x="57" y="42.333333333333336" width="247" height="15.666666666666664"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MtX-re-pev">
+                        <rect key="frame" x="61" y="42.333333333333336" width="243" height="15.666666666666664"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" systemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRH-Dj-wfG">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRH-Dj-wfG">
                         <rect key="frame" x="16" y="42.333333333333336" width="33" height="15.666666666666664"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" systemColor="darkTextColor"/>
@@ -42,7 +42,7 @@
                     <constraint firstItem="MtX-re-pev" firstAttribute="top" secondItem="PsT-g2-bAj" secondAttribute="bottom" constant="8" id="e4p-KA-Zvj"/>
                     <constraint firstItem="kRH-Dj-wfG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="eEz-eY-fUq"/>
                     <constraint firstItem="PsT-g2-bAj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="mOI-XJ-vSe"/>
-                    <constraint firstItem="MtX-re-pev" firstAttribute="leading" secondItem="kRH-Dj-wfG" secondAttribute="trailing" constant="8" id="nmH-aN-Myr"/>
+                    <constraint firstItem="MtX-re-pev" firstAttribute="leading" secondItem="kRH-Dj-wfG" secondAttribute="trailing" constant="12" id="nmH-aN-Myr"/>
                     <constraint firstAttribute="bottom" secondItem="kRH-Dj-wfG" secondAttribute="bottom" constant="8" id="rO1-ih-3tX"/>
                     <constraint firstItem="kRH-Dj-wfG" firstAttribute="top" secondItem="PsT-g2-bAj" secondAttribute="bottom" constant="8" id="sjU-By-O7l"/>
                 </constraints>
