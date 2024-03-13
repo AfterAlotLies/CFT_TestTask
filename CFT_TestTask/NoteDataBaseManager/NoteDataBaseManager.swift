@@ -15,9 +15,14 @@ class NoteDataBaseManager {
     
     static let shared = NoteDataBaseManager()
     
-    func saveToEmptyBase(title: String, text: String, time: String) {
+    private let context: NSManagedObjectContext
+    
+    init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        context = appDelegate.persistentContainer.viewContext
+    }
+    
+    func saveToEmptyBase(title: String, text: String, time: String) {
         let entity = NSEntityDescription.insertNewObject(forEntityName: "Notes", into: context)
         
         entity.setValue(title, forKey: "titleNote")
@@ -33,13 +38,11 @@ class NoteDataBaseManager {
     }
     
     func loadFromBase(type : OperationType, id: String? = nil) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
         fetchRequest.returnsObjectsAsFaults = false
         
         switch type {
-
+            
         case .noteList:
             do {
                 let results = try context.fetch(fetchRequest)
@@ -63,7 +66,7 @@ class NoteDataBaseManager {
             } catch {
                 print("cant read from database")
             }
-
+            
         case .note :
             fetchRequest.predicate = NSPredicate(format: "id = %@", id!)
             do {
@@ -85,8 +88,6 @@ class NoteDataBaseManager {
     }
     
     func updateNote(id: String, title: String, text: String, time: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
         fetchRequest.returnsObjectsAsFaults = false
         
@@ -109,6 +110,36 @@ class NoteDataBaseManager {
             }
         } catch {
             print("cant update item 2")
+        }
+    }
+    
+    func removeFromDataBase(id: UUID) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        let idString = id.uuidString
+        
+        fetchRequest.predicate = NSPredicate(format: "id = %@", idString)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if results.count > 0 {
+                for result in results as! [NSManagedObject] {
+                    if let deletingId = result.value(forKey: "id") as? UUID {
+                        if deletingId == id {
+                            context.delete(result)
+                            
+                            do {
+                                try context.save()
+                            } catch {
+                                print("can't 2")
+                            }
+                        }
+                    }
+                }
+            }
+        } catch {
+            print("can't 1")
         }
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class NoteListViewController: UIViewController {
-
+    
     @IBOutlet private weak var noteTableView: UITableView!
     
     private var titleNotesArray: [String] = ["Это первая заметка!"]
@@ -60,19 +60,39 @@ class NoteListViewController: UIViewController {
 extension NoteListViewController: NoteListDelegate {
     
     func fillTitleNotesArray(title: String) {
-        titleNotesArray.append(title)
+        titleNotesArray.insert(title, at: 0)
     }
     
     func fillTextNotesArray(text: String) {
-        textNotesArray.append(text)
+        textNotesArray.insert(text, at: 0)
     }
     
     func fillCurrentNoteTimeArray(time: String) {
-        currentNoteTime.append(time)
+        currentNoteTime.insert(time, at: 0)
     }
     
     func fillNotesIdArray(id: UUID) {
-        notesIdArray.append(id)
+        notesIdArray.insert(id, at: 0)
+    }
+}
+
+extension NoteListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let noteViewController = NoteViewController(nibName: "NoteViewController", bundle: nil)
+        noteViewController.setSelectedNoteId(id: notesIdArray[indexPath.row])
+        navigationController?.pushViewController(noteViewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            noteDataBaseManager.removeFromDataBase(id: notesIdArray[indexPath.row])
+            textNotesArray.remove(at: indexPath.row)
+            titleNotesArray.remove(at: indexPath.row)
+            currentNoteTime.remove(at: indexPath.row)
+            notesIdArray.remove(at: indexPath.row)
+            noteTableView.reloadData()
+        }
     }
 }
 
@@ -93,13 +113,3 @@ extension NoteListViewController: UITableViewDataSource {
     }
     
 }
-
-extension NoteListViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let noteViewController = NoteViewController(nibName: "NoteViewController", bundle: nil)
-        noteViewController.setSelectedNoteId(id: notesIdArray[indexPath.row])
-        navigationController?.pushViewController(noteViewController, animated: true)
-    }
-}
-
