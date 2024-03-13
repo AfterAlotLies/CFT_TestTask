@@ -97,7 +97,6 @@
 				11F9615A2B9EC3EF003F948F /* Assets.xcassets */,
 				11F9615C2B9EC3EF003F948F /* LaunchScreen.storyboard */,
 				11F9615F2B9EC3EF003F948F /* Info.plist */,
-				11F9618E2BA08175003F948F /* OperationType.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -158,6 +157,7 @@
 		11F961862B9F27D3003F948F /* NoteDataBaseManager */ = {
 			isa = PBXGroup;
 			children = (
+				11F9618E2BA08175003F948F /* OperationType.swift */,
 				11F961872B9F27E2003F948F /* NoteDataBaseManager.swift */,
 			);
 			path = NoteDataBaseManager;
