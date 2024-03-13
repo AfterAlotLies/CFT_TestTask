@@ -106,8 +106,13 @@ extension NoteListViewController: UITableViewDataSource {
         guard let cell = noteTableView.dequeueReusableCell(withIdentifier: "NoteTableViewCell") as? NotesTableViewCell else {
             return UITableViewCell()
         }
-        cell.setNoteTitle(title: titleNotesArray[indexPath.row])
-        cell.setNoteText(text: textNotesArray[indexPath.row])
+        if titleNotesArray[indexPath.row] == "" {
+            cell.setNoteTitle(title: textNotesArray[indexPath.row].replacingOccurrences(of: "\n", with: ""))
+            cell.setNoteText(text: "Нет дополнительного текста")
+        } else {
+            cell.setNoteTitle(title: titleNotesArray[indexPath.row])
+            cell.setNoteText(text: textNotesArray[indexPath.row].replacingOccurrences(of: "\n", with: ""))
+        }
         cell.setNoteTimeLabel(time: currentNoteTime[indexPath.row])
         return cell
     }

@@ -15,44 +15,49 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsT-g2-bAj">
-                        <rect key="frame" x="15.999999999999986" y="8.0000000000000018" width="230.66666666666663" height="29.666666666666671"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsT-g2-bAj">
+                        <rect key="frame" x="16" y="7.9999999999999982" width="288" height="26.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.98750644919999997" green="0.49747967720000003" blue="0.3120282888" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMN-2i-bH5">
-                        <rect key="frame" x="262.66666666666669" y="8" width="41.333333333333314" height="50"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.98750644919999997" green="0.49747967720000003" blue="0.3120282888" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" systemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MtX-re-pev">
-                        <rect key="frame" x="15.999999999999986" y="43.666666666666664" width="230.66666666666663" height="14.333333333333336"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.98750644919999997" green="0.49747967720000003" blue="0.3120282888" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="57" y="42.333333333333336" width="247" height="15.666666666666664"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" systemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRH-Dj-wfG">
+                        <rect key="frame" x="16" y="42.333333333333336" width="33" height="15.666666666666664"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" systemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="AMN-2i-bH5" firstAttribute="leading" secondItem="MtX-re-pev" secondAttribute="trailing" constant="16" id="5vx-A0-pAT"/>
-                    <constraint firstItem="PsT-g2-bAj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="ElE-vp-PpY"/>
-                    <constraint firstItem="AMN-2i-bH5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Igh-wH-8ne"/>
-                    <constraint firstItem="PsT-g2-bAj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="W8v-bD-jyD"/>
-                    <constraint firstItem="AMN-2i-bH5" firstAttribute="leading" secondItem="PsT-g2-bAj" secondAttribute="trailing" constant="16" id="ZpB-Na-VDv"/>
-                    <constraint firstAttribute="bottom" secondItem="MtX-re-pev" secondAttribute="bottom" constant="8" id="h2U-ls-Ikz"/>
-                    <constraint firstAttribute="trailing" secondItem="AMN-2i-bH5" secondAttribute="trailing" constant="16" id="mOH-Hg-2QI"/>
-                    <constraint firstItem="MtX-re-pev" firstAttribute="top" secondItem="PsT-g2-bAj" secondAttribute="bottom" constant="6" id="qOM-Qd-H96"/>
-                    <constraint firstItem="MtX-re-pev" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="std-Wd-d2V"/>
-                    <constraint firstAttribute="bottom" secondItem="AMN-2i-bH5" secondAttribute="bottom" constant="8" id="wtV-ac-dFX"/>
+                    <constraint firstAttribute="trailing" secondItem="PsT-g2-bAj" secondAttribute="trailing" constant="16" id="68K-86-s0a"/>
+                    <constraint firstAttribute="bottom" secondItem="MtX-re-pev" secondAttribute="bottom" constant="8" id="ETH-mh-pwi"/>
+                    <constraint firstAttribute="trailing" secondItem="MtX-re-pev" secondAttribute="trailing" constant="16" id="Thv-4V-tMX"/>
+                    <constraint firstItem="PsT-g2-bAj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ckq-OO-w12"/>
+                    <constraint firstItem="MtX-re-pev" firstAttribute="top" secondItem="PsT-g2-bAj" secondAttribute="bottom" constant="8" id="e4p-KA-Zvj"/>
+                    <constraint firstItem="kRH-Dj-wfG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="eEz-eY-fUq"/>
+                    <constraint firstItem="PsT-g2-bAj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="mOI-XJ-vSe"/>
+                    <constraint firstItem="MtX-re-pev" firstAttribute="leading" secondItem="kRH-Dj-wfG" secondAttribute="trailing" constant="8" id="nmH-aN-Myr"/>
+                    <constraint firstAttribute="bottom" secondItem="kRH-Dj-wfG" secondAttribute="bottom" constant="8" id="rO1-ih-3tX"/>
+                    <constraint firstItem="kRH-Dj-wfG" firstAttribute="top" secondItem="PsT-g2-bAj" secondAttribute="bottom" constant="8" id="sjU-By-O7l"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="noteTextLabel" destination="MtX-re-pev" id="7X0-Rd-VwS"/>
-                <outlet property="noteTimeLabel" destination="AMN-2i-bH5" id="xae-fG-K5H"/>
+                <outlet property="noteTimeLabel" destination="kRH-Dj-wfG" id="at7-wr-5jX"/>
                 <outlet property="noteTitleLabel" destination="PsT-g2-bAj" id="Wji-EH-rEF"/>
             </connections>
             <point key="canvasLocation" x="0.0" y="27.464788732394368"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -15,6 +15,7 @@ class NotesTableViewCell: UITableViewCell {
     
     func setNoteTitle(title: String) {
         noteTitleLabel.text = title
+        noteTitleLabel.font = UIFont.boldSystemFont(ofSize: 18)
     }
     
     func setNoteText(text: String) {

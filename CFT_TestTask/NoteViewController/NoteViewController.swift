@@ -10,15 +10,14 @@ import UIKit
 class NoteViewController: UIViewController {
     
     @IBOutlet private weak var noteTextField: UITextView!
-    @IBOutlet private weak var titleField: UITextField!
     
     private var selectedNoteId: UUID?
-    
     private let noteDataBaseManager = NoteDataBaseManager()
+    private var firstEnterPressed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        noteDataBaseManager.noteControllerDelegate = self
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,27 +28,71 @@ class NoteViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        writeToBase()
+        guard let id = selectedNoteId else {
+            writeToBase()
+            return
+        }
+        if noteTextField.text == "" {
+            noteDataBaseManager.removeFromDataBase(id: id)
+        } else {
+            writeToBase()
+        }
     }
     
     func setSelectedNoteId(id: UUID) {
         selectedNoteId = id
     }
     
+    private func setupView() {
+        noteDataBaseManager.noteControllerDelegate = self
+        noteTextField.delegate = self
+        noteTextField.becomeFirstResponder()
+    }
+    
     private func writeToBase() {
-        guard let uuid = selectedNoteId?.uuidString else {
-            if titleField.text != "" {
-                if let title = titleField.text {
-                    noteDataBaseManager.saveToEmptyBase(title: title, text: noteTextField.text, time: getCurrentTime())
-                    return
+        guard let id = selectedNoteId?.uuidString else {
+            if let text = noteTextField.text, !text.isEmpty {
+                let components = text.components(separatedBy: "\n")
+                var title = ""
+                var note = ""
+                if let firstComponent = components.first {
+                    if !firstComponent.isEmpty {
+                        title = firstComponent
+                        if components.count > 1 {
+                            note = components.dropFirst().joined(separator: "\n")
+                        }
+                    } else {
+                        note = text
+                    }
                 }
-                return
-            } else {
-                return
+                
+                let boldText = NSMutableAttributedString(string: title)
+                boldText.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: title.count))
+                let boldTitle = boldText.string
+                noteDataBaseManager.saveToEmptyBase(title: boldTitle, text: note, time: getCurrentTime())
             }
+            return
         }
-        if let title = titleField.text, title != "" {
-            noteDataBaseManager.updateNote(id: uuid, title: title, text: noteTextField.text, time: getCurrentTime())
+        
+        if let text = noteTextField.text, !text.isEmpty {
+            let components = text.components(separatedBy: "\n")
+            var title = ""
+            var note = ""
+            if let firstComponent = components.first {
+                if !firstComponent.isEmpty {
+                    title = firstComponent
+                    if components.count > 1 {
+                        note = components.dropFirst().joined(separator: "\n")
+                    }
+                } else {
+                    note = text
+                }
+            }
+            
+            let boldText = NSMutableAttributedString(string: title)
+            boldText.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: title.count))
+            let boldTitle = boldText.string
+            noteDataBaseManager.updateNote(id: id, title: boldTitle, text: note, time: getCurrentTime())
         }
     }
     
@@ -60,13 +103,45 @@ class NoteViewController: UIViewController {
     }
 }
 
+extension NoteViewController: UITextViewDelegate {
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        guard let text = textView.text else { return }
+        let attributedText = NSMutableAttributedString(string: text)
+        let firstLineRange = (text as NSString).lineRange(for: NSRange(location: 0, length: 0))
+        attributedText.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: firstLineRange)
+        
+        textView.attributedText = attributedText
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard let text = textView.text else { return }
+        let attributedText = NSMutableAttributedString(string: text)
+        let firstLineRange = (text as NSString).lineRange(for: NSRange(location: 0, length: 0))
+        attributedText.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: firstLineRange)
+        
+        textView.attributedText = attributedText
+    }
+}
+
 extension NoteViewController: NoteViewControllerDelegate {
     
     func setTitle(title: String) {
-        titleField.text = title
+        noteTextField.text = title
     }
     
     func setNoteText(text: String) {
-        noteTextField.text = text
+        let attributedText = NSMutableAttributedString(string: text)
+        let firstLineRange = (text as NSString).lineRange(for: NSRange(location: 0, length: 0))
+        attributedText.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: firstLineRange)
+        
+        if let existingText = noteTextField.attributedText {
+            let updatedText = NSMutableAttributedString(attributedString: existingText)
+            updatedText.append(NSAttributedString(string: "\n"))
+            updatedText.append(attributedText)
+            noteTextField.attributedText = updatedText
+        } else {
+            noteTextField.attributedText = attributedText
+        }
     }
 }
