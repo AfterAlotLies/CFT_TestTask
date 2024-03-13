@@ -50,6 +50,13 @@ class NoteListViewController: UIViewController {
         navigationItem.title = "Заметки"
     }
     
+    private func removeElementFromArrays(row: Int) {
+        textNotesArray.remove(at: row)
+        titleNotesArray.remove(at: row)
+        currentNoteTime.remove(at: row)
+        notesIdArray.remove(at: row)
+    }
+    
     @objc
     private func createNewNote() {
         let noteViewController = NoteViewController(nibName: "NoteViewController", bundle: nil)
@@ -87,10 +94,7 @@ extension NoteListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             noteDataBaseManager.removeFromDataBase(id: notesIdArray[indexPath.row])
-            textNotesArray.remove(at: indexPath.row)
-            titleNotesArray.remove(at: indexPath.row)
-            currentNoteTime.remove(at: indexPath.row)
-            notesIdArray.remove(at: indexPath.row)
+            removeElementFromArrays(row: indexPath.row)
             noteTableView.reloadData()
         }
     }
