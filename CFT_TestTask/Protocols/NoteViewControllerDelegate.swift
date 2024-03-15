@@ -10,4 +10,5 @@ import UIKit
 protocol NoteViewControllerDelegate: AnyObject {
     func setTitle(title: String)
     func setNoteText(text: String)
+    func setImageToNoteText(image: Data?)
 }
