@@ -1,0 +1,9 @@
+/* 
+  LocalizableStrings.strings
+  CFT_TestTask
+
+  Created by Vyacheslav on 15.03.2024.
+  
+*/
+
+"NoteListViewController.navigationTitle" = "Заметки";
