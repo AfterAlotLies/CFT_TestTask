@@ -24,6 +24,10 @@
 		11F9618A2B9F32BD003F948F /* NoteListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F961892B9F32BD003F948F /* NoteListDelegate.swift */; };
 		11F9618D2BA07A74003F948F /* NoteViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9618C2BA07A74003F948F /* NoteViewControllerDelegate.swift */; };
 		11F9618F2BA08175003F948F /* OperationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9618E2BA08175003F948F /* OperationType.swift */; };
+		11F9619B2BA43120003F948F /* ConstantNoteBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9619A2BA43120003F948F /* ConstantNoteBaseManager.swift */; };
+		11F9619D2BA436EE003F948F /* DataBaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F9619C2BA436EE003F948F /* DataBaseType.swift */; };
+		11F961A42BA48D5F003F948F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11F961A32BA48D5F003F948F /* Localizable.strings */; };
+		11F961A62BA48DB3003F948F /* LocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F961A52BA48DB3003F948F /* LocalizableStrings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,11 @@
 		11F961892B9F32BD003F948F /* NoteListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListDelegate.swift; sourceTree = "<group>"; };
 		11F9618C2BA07A74003F948F /* NoteViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewControllerDelegate.swift; sourceTree = "<group>"; };
 		11F9618E2BA08175003F948F /* OperationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationType.swift; sourceTree = "<group>"; };
+		11F9619A2BA43120003F948F /* ConstantNoteBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantNoteBaseManager.swift; sourceTree = "<group>"; };
+		11F9619C2BA436EE003F948F /* DataBaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseType.swift; sourceTree = "<group>"; };
+		11F961A12BA45349003F948F /* CFT_TestTask 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CFT_TestTask 2.xcdatamodel"; sourceTree = "<group>"; };
+		11F961A32BA48D5F003F948F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		11F961A52BA48DB3003F948F /* LocalizableStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableStrings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +91,7 @@
 				11F961672B9EC50A003F948F /* NavigationController */,
 				11F9616E2B9EC5D0003F948F /* NoteListViewController */,
 				11F961732B9ECECC003F948F /* NoteViewController */,
-				11F961862B9F27D3003F948F /* NoteDataBaseManager */,
+				11F961862B9F27D3003F948F /* NoteDataBaseManagers */,
 				11F9618B2B9F3579003F948F /* Protocols */,
 				11F961662B9EC4B6003F948F /* Application */,
 				11F961652B9EC4AA003F948F /* Resources */,
@@ -93,6 +102,7 @@
 		11F961652B9EC4AA003F948F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				11F961A22BA48D43003F948F /* LocalizedStrings */,
 				11F961572B9EC3EC003F948F /* CFT_TestTask.xcdatamodeld */,
 				11F9615A2B9EC3EF003F948F /* Assets.xcassets */,
 				11F9615C2B9EC3EF003F948F /* LaunchScreen.storyboard */,
@@ -154,13 +164,14 @@
 			path = NoteTableViewCell;
 			sourceTree = "<group>";
 		};
-		11F961862B9F27D3003F948F /* NoteDataBaseManager */ = {
+		11F961862B9F27D3003F948F /* NoteDataBaseManagers */ = {
 			isa = PBXGroup;
 			children = (
-				11F9618E2BA08175003F948F /* OperationType.swift */,
+				11F961A02BA43B41003F948F /* EnumsTypes */,
 				11F961872B9F27E2003F948F /* NoteDataBaseManager.swift */,
+				11F9619A2BA43120003F948F /* ConstantNoteBaseManager.swift */,
 			);
-			path = NoteDataBaseManager;
+			path = NoteDataBaseManagers;
 			sourceTree = "<group>";
 		};
 		11F9618B2B9F3579003F948F /* Protocols */ = {
@@ -170,6 +181,24 @@
 				11F9618C2BA07A74003F948F /* NoteViewControllerDelegate.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		11F961A02BA43B41003F948F /* EnumsTypes */ = {
+			isa = PBXGroup;
+			children = (
+				11F9618E2BA08175003F948F /* OperationType.swift */,
+				11F9619C2BA436EE003F948F /* DataBaseType.swift */,
+			);
+			path = EnumsTypes;
+			sourceTree = "<group>";
+		};
+		11F961A22BA48D43003F948F /* LocalizedStrings */ = {
+			isa = PBXGroup;
+			children = (
+				11F961A32BA48D5F003F948F /* Localizable.strings */,
+				11F961A52BA48DB3003F948F /* LocalizableStrings.swift */,
+			);
+			path = LocalizedStrings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +263,7 @@
 				11F9615E2B9EC3EF003F948F /* LaunchScreen.storyboard in Resources */,
 				11F9615B2B9EC3EF003F948F /* Assets.xcassets in Resources */,
 				11F961772B9ECF75003F948F /* NoteViewController.xib in Resources */,
+				11F961A42BA48D5F003F948F /* Localizable.strings in Resources */,
 				11F961722B9EC5F6003F948F /* NoteListViewController.xib in Resources */,
 				11F961852B9EE969003F948F /* NotesTableViewCell.xib in Resources */,
 			);
@@ -249,10 +279,13 @@
 				11F961592B9EC3EC003F948F /* CFT_TestTask.xcdatamodeld in Sources */,
 				11F9616B2B9EC568003F948F /* NavigationController.swift in Sources */,
 				11F9614F2B9EC3EC003F948F /* AppDelegate.swift in Sources */,
+				11F9619D2BA436EE003F948F /* DataBaseType.swift in Sources */,
 				11F9618F2BA08175003F948F /* OperationType.swift in Sources */,
 				11F961512B9EC3EC003F948F /* SceneDelegate.swift in Sources */,
 				11F961762B9ECF75003F948F /* NoteViewController.swift in Sources */,
+				11F9619B2BA43120003F948F /* ConstantNoteBaseManager.swift in Sources */,
 				11F961882B9F27E2003F948F /* NoteDataBaseManager.swift in Sources */,
+				11F961A62BA48DB3003F948F /* LocalizableStrings.swift in Sources */,
 				11F961842B9EE969003F948F /* NotesTableViewCell.swift in Sources */,
 				11F961712B9EC5F6003F948F /* NoteListViewController.swift in Sources */,
 				11F9618D2BA07A74003F948F /* NoteViewControllerDelegate.swift in Sources */,
@@ -474,6 +507,7 @@
 		11F961572B9EC3EC003F948F /* CFT_TestTask.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				11F961A12BA45349003F948F /* CFT_TestTask 2.xcdatamodel */,
 				11F961582B9EC3EC003F948F /* CFT_TestTask.xcdatamodel */,
 			);
 			currentVersion = 11F961582B9EC3EC003F948F /* CFT_TestTask.xcdatamodel */;

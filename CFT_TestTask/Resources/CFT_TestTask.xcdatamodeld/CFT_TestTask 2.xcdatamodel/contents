@@ -3,7 +3,6 @@
     <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="imageData" optional="YES" attributeType="Binary"/>
-        <attribute name="indexInsertion" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="noteText" optional="YES" attributeType="String"/>
         <attribute name="timeNote" optional="YES" attributeType="String"/>
         <attribute name="titleNote" optional="YES" attributeType="String"/>

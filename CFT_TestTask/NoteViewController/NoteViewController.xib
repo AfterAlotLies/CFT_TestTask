@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7ua-rT-ccY">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <rect key="frame" x="16" y="67" width="361" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <color key="textColor" systemColor="labelColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -30,10 +30,10 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="7ua-rT-ccY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8FO-He-z8i"/>
-                <constraint firstItem="7ua-rT-ccY" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="MAh-JN-hdI"/>
-                <constraint firstItem="7ua-rT-ccY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="bEF-TX-pe1"/>
-                <constraint firstItem="7ua-rT-ccY" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="t21-fZ-B2t"/>
+                <constraint firstItem="7ua-rT-ccY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="BYf-kV-5ST"/>
+                <constraint firstItem="7ua-rT-ccY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="IAm-As-StW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7ua-rT-ccY" secondAttribute="trailing" constant="16" id="Kzb-bD-ICZ"/>
+                <constraint firstItem="7ua-rT-ccY" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="8" id="aHJ-Pr-k0f"/>
             </constraints>
             <point key="canvasLocation" x="75.572519083969468" y="20.422535211267608"/>
         </view>
