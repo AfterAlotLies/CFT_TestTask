@@ -7,12 +7,14 @@
 
 import UIKit
 
+// MARK: - NotesTableViewCell
 class NotesTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var noteTitleLabel: UILabel!
     @IBOutlet private weak var noteTimeLabel: UILabel!
     @IBOutlet private weak var noteTextLabel: UILabel!
     
+    // MARK: - Setters for IBOutlet's
     func setNoteTitle(title: String) {
         noteTitleLabel.text = title
         noteTitleLabel.font = UIFont.boldSystemFont(ofSize: 18)

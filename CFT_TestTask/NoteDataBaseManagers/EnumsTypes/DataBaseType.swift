@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - DataBaseType
 enum DataBaseType {
     case UserDefaults
     case CoreData

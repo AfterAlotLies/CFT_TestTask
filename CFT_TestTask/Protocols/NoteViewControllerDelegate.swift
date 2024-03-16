@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - NoteViewControllerDelegate
 protocol NoteViewControllerDelegate: AnyObject {
     func setTitle(title: String)
     func setNoteText(text: String)

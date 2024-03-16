@@ -7,10 +7,12 @@
 
 import UIKit
 
+// MARK: - NoteViewController
 class NoteViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet private weak var noteTextField: UITextView!
     
+    // MARK: - Constants
     private enum Constants {
         static let idValue = "00000000-0000-0000-0000-000000000000"
         static let enterSymbol = "\n"
@@ -27,6 +29,7 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
     private let noteDataBaseManager = NoteDataBaseManager.shared
     private let constantNoteManager = ConstantNoteBaseManager.shared
     
+    // MARK: - App Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -43,6 +46,7 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
                 }
             }
         } else {
+            insertableImage = nil
             noteDataBaseManager.loadFromBase(type: .note, id: id)
         }
     }
@@ -62,7 +66,11 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
             saveConstantNote()
             return
         }
-
+        
+        if !containsImage() {
+            noteDataBaseManager.deleteImageFromDataBase(id: id)
+        }
+        
         if noteTextField.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             noteDataBaseManager.removeFromDataBase(id: id)
         } else {
@@ -70,6 +78,7 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    // MARK: - Methods for set values
     func setSelectedNoteId(id: UUID) {
         selectedNoteId = id
     }
@@ -86,6 +95,11 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
         constantNoteText = text
     }
     
+    func setImage(image: UIImage) {
+        insertableImage = image
+    }
+    
+    // MARK: - Setup methods
     private func setupView() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         noteDataBaseManager.noteControllerDelegate = self
@@ -94,6 +108,24 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
         setupTextFieldsAccessoryView()
     }
     
+    private func setupTextFieldsAccessoryView() {
+        guard noteTextField.inputAccessoryView == nil else {
+            return
+        }
+        
+        let toolBar: UIToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44))
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = false
+
+        let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let closeButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.close, target: self, action: #selector(didPressDoneButton))
+        let addPhotoButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.camera, target: self, action: #selector(insertPhoto))
+        toolBar.items = [addPhotoButton, flexsibleSpace, closeButton]
+        
+        noteTextField.inputAccessoryView = toolBar
+    }
+    
+    // MARK: - Save to CoreData + constant note
     private func saveConstantNote() {
         if let text = noteTextField.text, !text.isEmpty {
             distributeTextToTitleAndBody(text: text, dataBaseType: .UserDefaults)
@@ -113,6 +145,7 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    // MARK: - Get title and text to different keys
     private func distributeTextToTitleAndBody(text: String, dataBaseType: DataBaseType, id: String? = nil) {
         let components = text.components(separatedBy: Constants.enterSymbol)
         var title = ""
@@ -157,23 +190,6 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
         return dateFormatter.string(from: Date())
     }
     
-    private func setupTextFieldsAccessoryView() {
-        guard noteTextField.inputAccessoryView == nil else {
-            return
-        }
-        
-        let toolBar: UIToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44))
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = false
-
-        let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let closeButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.close, target: self, action: #selector(didPressDoneButton))
-        let addPhotoButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.camera, target: self, action: #selector(insertPhoto))
-        toolBar.items = [addPhotoButton, flexsibleSpace, closeButton]
-        
-        noteTextField.inputAccessoryView = toolBar
-    }
-    
     @objc
     private func didPressDoneButton(button: UIButton) {
         noteTextField.resignFirstResponder()
@@ -202,6 +218,24 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate {
     }
 }
 
+// MARK: - NoteViewController + ContainsImage
+extension NoteViewController {
+    
+    func containsImage() -> Bool {
+        guard let attributedText = noteTextField.attributedText else {
+            return false
+        }
+        var containsImage = false
+        attributedText.enumerateAttribute(.attachment, in: NSRange(location: 0, length: attributedText.length), options: []) { value, _, _ in
+            if let _ = value as? NSTextAttachment {
+                containsImage = true
+            }
+        }
+        return containsImage
+    }
+}
+
+// MARK: - NoteViewController + UITextViewDelegate
 extension NoteViewController: UITextViewDelegate {
     
     func textViewDidChangeSelection(_ textView: UITextView) {
@@ -236,6 +270,7 @@ extension NoteViewController: UITextViewDelegate {
 
 }
 
+// MARK: - NoteViewController + UIImagePickerControllerDelegate
 extension NoteViewController: UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -253,6 +288,7 @@ extension NoteViewController: UIImagePickerControllerDelegate {
     }
 }
 
+// MARK: - NoteViewController + NoteViewControllerDelegate
 extension NoteViewController: NoteViewControllerDelegate {
     
     func setTitle(title: String) {
@@ -290,7 +326,7 @@ extension NoteViewController: NoteViewControllerDelegate {
         let selectedRange = noteTextField.selectedRange
         
         let attributedText = NSMutableAttributedString(attributedString: noteTextField.attributedText)
-        attributedText.insert(attachmentString, at: 20)
+        attributedText.insert(attachmentString, at: selectedRange.location)
         
         noteTextField.attributedText = attributedText
     }

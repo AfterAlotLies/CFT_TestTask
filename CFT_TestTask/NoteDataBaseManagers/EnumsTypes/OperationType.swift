@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - OperationType
 enum OperationType {
     case noteList
     case note

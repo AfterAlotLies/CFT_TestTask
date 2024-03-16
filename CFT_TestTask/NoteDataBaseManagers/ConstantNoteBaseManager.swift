@@ -7,10 +7,12 @@
 
 import UIKit
 
+// MARK: - ConstantNoteBaseManager
 class ConstantNoteBaseManager {
     
     static let shared = ConstantNoteBaseManager()
     
+    // MARK: - Values in UserDefaults
     var constantNoteTitle: String? {
         return UserDefaults.standard.string(forKey: "constantNoteTitle")
     }
@@ -27,6 +29,7 @@ class ConstantNoteBaseManager {
         return UserDefaults.standard.string(forKey: "isUserDefaultsEmpty")
     }
     
+    // MARK: - Methods for set/delete values to UserDefaults
     func saveConstantNoteData(title: String, note: String, time: String) {
         UserDefaults.standard.set(title, forKey: "constantNoteTitle")
         UserDefaults.standard.set(note, forKey: "constantNoteText")

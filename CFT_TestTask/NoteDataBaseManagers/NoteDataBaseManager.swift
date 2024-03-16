@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 
+// MARK: - NoteDataBaseManager
 class NoteDataBaseManager {
     
     weak var noteListDelegate: NoteListDelegate?
@@ -17,11 +18,13 @@ class NoteDataBaseManager {
     
     private let context: NSManagedObjectContext
     
+    // MARK: - Init()
     init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         context = appDelegate.persistentContainer.viewContext
     }
     
+    // MARK: - Save data to empty Core Data
     func saveToEmptyBase(title: String, text: String, time: String, image: Data? = nil) {
         let entity = NSEntityDescription.insertNewObject(forEntityName: "Notes", into: context)
         
@@ -40,6 +43,7 @@ class NoteDataBaseManager {
         }
     }
     
+    // MARK: - Get data from Core Data
     func loadFromBase(type : OperationType, id: String? = nil) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
         fetchRequest.returnsObjectsAsFaults = false
@@ -64,6 +68,9 @@ class NoteDataBaseManager {
                     }
                     if let id = result.value(forKey: "id") as? UUID {
                         noteListDelegate?.fillNotesIdArray(id: id)
+                    }
+                    if let image = result.value(forKey: "imageData") as? Data {
+                        noteListDelegate?.fillImagesDataArray(image: image)
                     }
                 }
             } catch {
@@ -93,6 +100,7 @@ class NoteDataBaseManager {
         }
     }
     
+    // MARK: - Update data in Core Data
     func updateNote(id: String, title: String, text: String, time: String, image: Data? = nil) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
         fetchRequest.returnsObjectsAsFaults = false
@@ -122,6 +130,7 @@ class NoteDataBaseManager {
         }
     }
     
+    // MARK: - Delete data from Core Data
     func removeFromDataBase(id: UUID) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
         fetchRequest.returnsObjectsAsFaults = false
@@ -152,47 +161,25 @@ class NoteDataBaseManager {
         }
     }
     
-    func deleteImageFromDataBase(id: UUID, image: Data) {
+    // MARK: - Delete imageData from Core Data
+    func deleteImageFromDataBase(id: UUID) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
         fetchRequest.returnsObjectsAsFaults = false
         
         let idString = id.uuidString
         
-        fetchRequest.predicate = NSPredicate(format: "imageData = %@", image as CVarArg)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", idString)
         
         do {
             let results = try context.fetch(fetchRequest)
-            if results.count > 0 {
-                for result in results as! [NSManagedObject] {
-                    if let deletingId = result.value(forKey: "id") as? UUID {
-                        if deletingId == id {
-                            context.delete(result)
-                            
-                            do {
-                                try context.save()
-                            } catch {
-                                print("can't 2")
-                            }
-                        }
-                    }
+            for result in results as! [NSManagedObject] {
+                if let imageData = result.value(forKey: "imageData") as? Data {
+                    result.setValue(nil, forKey: "imageData")
+                    try context.save()
                 }
             }
         } catch {
-            print("can't 1")
+            print("Error deleting image from database: \(error)")
         }
-    }
-    
-    func viewDataBase() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
-        fetchRequest.returnsObjectsAsFaults = false
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if results.count > 1 {
-                for result in results as! [NSManagedObject] {
-                    print(result)
-                }
-            }
-        } catch { print("can't output base data ") }
     }
 }

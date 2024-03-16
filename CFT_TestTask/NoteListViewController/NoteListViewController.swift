@@ -7,10 +7,12 @@
 
 import UIKit
 
+// MARK: - NoteListViewController
 class NoteListViewController: UIViewController {
     
     @IBOutlet private weak var noteTableView: UITableView!
     
+    // MARK: - Constants
     private enum Constants {
         static let idValue = "00000000-0000-0000-0000-000000000000"
         static let userDefaultsStateTrue = "true"
@@ -28,11 +30,13 @@ class NoteListViewController: UIViewController {
     private var textNotesArray = [String]()
     private var currentNoteTime = [String]()
     private var notesIdArray = [UUID]()
+    private var imageDataArray = [Data]()
     
     private let constantIdNote = Constants.idValue
     private let noteDataBaseManager = NoteDataBaseManager.shared
     private let constantNoteBaseManager = ConstantNoteBaseManager.shared
     
+    // MARK: - App Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
@@ -47,15 +51,25 @@ class NoteListViewController: UIViewController {
         noteTableView.reloadData()
     }
     
+    // MARK: - Actions with arrays
     private func clearArrays() {
         titleNotesArray.removeAll()
         textNotesArray.removeAll()
         currentNoteTime.removeAll()
         notesIdArray.removeAll()
+        imageDataArray.removeAll()
     }
     
+    private func removeElementFromArrays(row: Int) {
+        textNotesArray.remove(at: row)
+        titleNotesArray.remove(at: row)
+        currentNoteTime.remove(at: row)
+        notesIdArray.remove(at: row)
+    }
+    
+    // MARK: - Methods for constant note
     private func addForConstantNote() {
-        if let isUserDefaultsEmpty = constantNoteBaseManager.isUserDefaultsEmpty{
+        if let isUserDefaultsEmpty = constantNoteBaseManager.isUserDefaultsEmpty {
             if isUserDefaultsEmpty == Constants.userDefaultsStateTrue {
                 return
             } else {
@@ -92,6 +106,7 @@ class NoteListViewController: UIViewController {
         }
     }
     
+    // MARK: - Setup methods
     private func setupView() {
         noteTableView.dataSource = self
         noteTableView.delegate = self
@@ -104,13 +119,6 @@ class NoteListViewController: UIViewController {
         navigationItem.title = LocalizableStrings.navigationTitle
     }
     
-    private func removeElementFromArrays(row: Int) {
-        textNotesArray.remove(at: row)
-        titleNotesArray.remove(at: row)
-        currentNoteTime.remove(at: row)
-        notesIdArray.remove(at: row)
-    }
-    
     @objc
     private func createNewNote() {
         let noteViewController = NoteViewController(nibName: Constants.noteViewController, bundle: nil)
@@ -118,6 +126,7 @@ class NoteListViewController: UIViewController {
     }
 }
 
+// MARK: - NoteListViewController + NoteListDelegate
 extension NoteListViewController: NoteListDelegate {
     
     func fillTitleNotesArray(title: String) {
@@ -135,8 +144,13 @@ extension NoteListViewController: NoteListDelegate {
     func fillNotesIdArray(id: UUID) {
         notesIdArray.insert(id, at: 0)
     }
+    
+    func fillImagesDataArray(image: Data) {
+        imageDataArray.insert(image, at: 0)
+    }
 }
 
+// MARK: - NoteListViewController + UITableViewDelegate
 extension NoteListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -148,6 +162,11 @@ extension NoteListViewController: UITableViewDelegate {
             navigationController?.pushViewController(noteViewController, animated: true)
         } else {
             noteViewController.setSelectedNoteId(id: notesIdArray[indexPath.row])
+            if imageDataArray.indices.contains(indexPath.row) {
+                if let image = UIImage(data: imageDataArray[indexPath.row]) {
+                    noteViewController.setImage(image: image)
+                }
+            }
             navigationController?.pushViewController(noteViewController, animated: true)
         }
     }
@@ -165,6 +184,7 @@ extension NoteListViewController: UITableViewDelegate {
     }
 }
 
+//MARK: - NoteListViewController + UITableViewDataSource
 extension NoteListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

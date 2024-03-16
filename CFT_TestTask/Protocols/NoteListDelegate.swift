@@ -7,10 +7,12 @@
 
 import UIKit
 
+// MARK: - NoteListDelegate
 protocol NoteListDelegate: AnyObject {
     ///This protocol is usign for fill arrays to NoteListController
     func fillTextNotesArray(text: String)
     func fillCurrentNoteTimeArray(time: String)
     func fillTitleNotesArray(title: String)
     func fillNotesIdArray(id: UUID)
+    func fillImagesDataArray(image: Data)
 }
