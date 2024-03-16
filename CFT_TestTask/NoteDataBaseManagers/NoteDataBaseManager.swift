@@ -173,7 +173,7 @@ class NoteDataBaseManager {
         do {
             let results = try context.fetch(fetchRequest)
             for result in results as! [NSManagedObject] {
-                if let imageData = result.value(forKey: "imageData") as? Data {
+                if let _ = result.value(forKey: "imageData") as? Data {
                     result.setValue(nil, forKey: "imageData")
                     try context.save()
                 }
